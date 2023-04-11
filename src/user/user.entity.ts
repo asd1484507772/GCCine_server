@@ -1,4 +1,11 @@
-import { Entity, ObjectIdColumn, Column, Unique, BeforeInsert } from 'typeorm';
+import {
+  Entity,
+  ObjectID,
+  ObjectIdColumn,
+  Column,
+  Unique,
+  BeforeInsert,
+} from 'typeorm';
 import { Order } from '../order/order.entity';
 
 import * as bcrypt from 'bcrypt';
@@ -10,11 +17,11 @@ email：用户的电子邮件地址，我们使用了@Unique装饰器来确保�
 password：用户的密码。在插入之前，我们会使用@BeforeInsert装饰器和hashPassword方法对其进行加密。
 isAdmin：一个布尔值，表示用户是否是管理员，默认为false。
 */
-@Entity()
+@Entity('users')
 @Unique(['email'])
 export class User {
   @ObjectIdColumn()
-  id: string;
+  id: ObjectID;
 
   @Column()
   name: string;
