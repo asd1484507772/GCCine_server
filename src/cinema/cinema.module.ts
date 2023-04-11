@@ -1,16 +1,13 @@
-export class CreateCatDto {
-  readonly name: string;
-  readonly age: number;
-  readonly breed: string;
-}
+import { Module } from '@nestjs/common';
+import { CinemaController } from './cinema.controller';
+import { CinemaService } from './cinema.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Cinema } from './cinema.entity';
 
-export class UpdateCatDto {
-  readonly name?: string;
-  readonly age?: number;
-  readonly breed?: string;
-}
-
-export class ListAllEntities {
-  readonly limit: number;
-  readonly offset: number;
-}
+@Module({
+  imports: [TypeOrmModule.forFeature([Cinema])],
+  controllers: [CinemaController],
+  providers: [CinemaService],
+  exports: [CinemaService],
+})
+export class CinemaModule {}

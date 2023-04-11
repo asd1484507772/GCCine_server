@@ -1,16 +1,35 @@
-export class CreateCatDto {
-  readonly name: string;
-  readonly age: number;
-  readonly breed: string;
-}
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { User } from '../user/user.entity';
+import { Session } from '../session/session.entity';
 
-export class UpdateCatDto {
-  readonly name?: string;
-  readonly age?: number;
-  readonly breed?: string;
-}
+@Entity()
+export class Order {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-export class ListAllEntities {
-  readonly limit: number;
-  readonly offset: number;
+  @ManyToOne(() => User, (user) => user.orders)
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @ManyToOne(() => Session, (session) => session.orders)
+  @JoinColumn({ name: 'sessionId' })
+  session: Session;
+
+  @Column()
+  userId: string;
+
+  @Column()
+  sessionId: string;
+
+  @Column()
+  numberOfTickets: number;
+
+  @Column({ type: 'timestamp' })
+  createdAt: Date;
 }

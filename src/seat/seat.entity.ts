@@ -1,16 +1,27 @@
-export class CreateCatDto {
-  readonly name: string;
-  readonly age: number;
-  readonly breed: string;
-}
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { Cinema } from '../cinema/cinema.entity';
 
-export class UpdateCatDto {
-  readonly name?: string;
-  readonly age?: number;
-  readonly breed?: string;
-}
+@Entity()
+export class Seat {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-export class ListAllEntities {
-  readonly limit: number;
-  readonly offset: number;
+  @Column()
+  row: number;
+
+  @Column()
+  column: number;
+
+  @ManyToOne(() => Cinema, (cinema) => cinema.seats)
+  @JoinColumn({ name: 'cinemaId' })
+  cinema: Cinema;
+
+  @Column()
+  cinemaId: string;
 }

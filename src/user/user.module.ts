@@ -1,16 +1,16 @@
-export class CreateCatDto {
-  readonly name: string;
-  readonly age: number;
-  readonly breed: string;
-}
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserController } from './user.controller';
+import { UserService } from './user.service';
+import { User } from './user.entity';
 
-export class UpdateCatDto {
-  readonly name?: string;
-  readonly age?: number;
-  readonly breed?: string;
-}
-
-export class ListAllEntities {
-  readonly limit: number;
-  readonly offset: number;
-}
+@Module({
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    // 如果需要的话，导入其他相关模块，例如AuthModule
+  ],
+  controllers: [UserController],
+  providers: [UserService],
+  exports: [UserService], // 导出UserService，以便其他模块（如AuthModule）可以使用它
+})
+export class UserModule {}

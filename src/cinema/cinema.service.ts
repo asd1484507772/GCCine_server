@@ -1,16 +1,37 @@
-export class CreateCatDto {
-  readonly name: string;
-  readonly age: number;
-  readonly breed: string;
-}
+// cinema.service.ts
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Cinema } from './cinema.entity';
+import { CreateCinemaDto } from './dto/create-cinema.dto';
+import { UpdateCinemaDto } from './dto/update-cinema.dto';
 
-export class UpdateCatDto {
-  readonly name?: string;
-  readonly age?: number;
-  readonly breed?: string;
-}
+@Injectable()
+export class CinemaService {
+  constructor(
+    @InjectRepository(Cinema)
+    private cinemaRepository: Repository<Cinema>,
+  ) {}
 
-export class ListAllEntities {
-  readonly limit: number;
-  readonly offset: number;
+  create(createCinemaDto: CreateCinemaDto): Promise<Cinema> {
+    const cinema = this.cinemaRepository.create(createCinemaDto);
+    return this.cinemaRepository.save(cinema);
+  }
+
+  findAll(): Promise<Cinema[]> {
+    return this.cinemaRepository.find();
+  }
+
+  findOne(id: string): Promise<Cinema> {
+    return this.cinemaRepository.findOne({ where: { id } });
+  }
+
+  async update(id: string, updateCinemaDto: UpdateCinemaDto): Promise<Cinema> {
+    await this.cinemaRepository.update(id, updateCinemaDto);
+    return this.cinemaRepository.findOne({ where: { id } });
+  }
+
+  async remove(id: string): Promise<void> {
+    await this.cinemaRepository.delete(id);
+  }
 }

@@ -1,39 +1,42 @@
 import {
   Controller,
   Get,
-  Query,
   Post,
   Body,
-  Put,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
-import { CreateCatDto, UpdateCatDto, ListAllEntities } from './create-cat.dto';
+import { MovieService } from './movie.service';
+import { CreateMovieDto } from './dto/create-movie.dto';
+import { UpdateMovieDto } from './dto/update-movie.dto';
 
-@Controller('cats')
-export class CatsController {
+@Controller('movies')
+export class MovieController {
+  constructor(private readonly movieService: MovieService) {}
+
   @Post()
-  create(@Body() createCatDto: CreateCatDto) {
-    return 'This action adds a new cat';
+  create(@Body() createMovieDto: CreateMovieDto) {
+    return this.movieService.create(createMovieDto);
   }
 
   @Get()
-  findAll(@Query() query: ListAllEntities) {
-    return `This action returns all cats (limit: ${query.limit} items)`;
+  findAll() {
+    return this.movieService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `This action returns a #${id} cat`;
+    return this.movieService.findOne(id);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateCatDto: UpdateCatDto) {
-    return `This action updates a #${id} cat`;
+  update(@Param('id') id: string, @Body() updateMovieDto: UpdateMovieDto) {
+    return this.movieService.update(id, updateMovieDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return `This action removes a #${id} cat`;
+    return this.movieService.remove(id);
   }
 }

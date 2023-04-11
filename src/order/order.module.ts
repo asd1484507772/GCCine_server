@@ -1,16 +1,13 @@
-export class CreateCatDto {
-  readonly name: string;
-  readonly age: number;
-  readonly breed: string;
-}
+import { Module } from '@nestjs/common';
+import { OrderController } from './order.controller';
+import { OrderService } from './order.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Order } from './order.entity';
 
-export class UpdateCatDto {
-  readonly name?: string;
-  readonly age?: number;
-  readonly breed?: string;
-}
-
-export class ListAllEntities {
-  readonly limit: number;
-  readonly offset: number;
-}
+@Module({
+  imports: [TypeOrmModule.forFeature([Order])],
+  controllers: [OrderController],
+  providers: [OrderService],
+  exports: [OrderService],
+})
+export class OrderModule {}
