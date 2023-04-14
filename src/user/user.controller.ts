@@ -9,6 +9,7 @@ import {
   UseGuards,
   Req,
 } from '@nestjs/common';
+import { ObjectID } from 'typeorm';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -32,14 +33,14 @@ export class UserController {
 
   @Get(':id')
   @UseGuards(AuthGuard)
-  async findUserById(@Param('id') id: string) {
+  async findUserById(@Param('id') id: ObjectID) {
     return await this.userService.findUserById(id);
   }
 
   @Put(':id')
   @UseGuards(AuthGuard)
   async updateUser(
-    @Param('id') id: string,
+    @Param('id') id: ObjectID,
     @Body() updateUserDto: UpdateUserDto,
   ) {
     return await this.userService.updateUser(id, updateUserDto);
@@ -47,7 +48,7 @@ export class UserController {
 
   @Delete(':id')
   @UseGuards(AuthGuard)
-  async deleteUser(@Param('id') id: string) {
+  async deleteUser(@Param('id') id: ObjectID) {
     return await this.userService.deleteUser(id);
   }
 }

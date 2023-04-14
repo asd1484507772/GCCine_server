@@ -1,7 +1,7 @@
 // cinema.service.ts
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, ObjectID } from 'typeorm';
 import { Cinema } from './cinema.entity';
 import { CreateCinemaDto } from './dto/create-cinema.dto';
 import { UpdateCinemaDto } from './dto/update-cinema.dto';
@@ -15,6 +15,7 @@ export class CinemaService {
 
   create(createCinemaDto: CreateCinemaDto): Promise<Cinema> {
     const cinema = this.cinemaRepository.create(createCinemaDto);
+
     return this.cinemaRepository.save(cinema);
   }
 
@@ -22,16 +23,19 @@ export class CinemaService {
     return this.cinemaRepository.find();
   }
 
-  findOne(id: string): Promise<Cinema> {
+  findOne(id: ObjectID): Promise<Cinema> {
     return this.cinemaRepository.findOne({ where: { id } });
   }
 
-  async update(id: string, updateCinemaDto: UpdateCinemaDto): Promise<Cinema> {
+  async update(
+    id: ObjectID,
+    updateCinemaDto: UpdateCinemaDto,
+  ): Promise<Cinema> {
     await this.cinemaRepository.update(id, updateCinemaDto);
     return this.cinemaRepository.findOne({ where: { id } });
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: ObjectID): Promise<void> {
     await this.cinemaRepository.delete(id);
   }
 }

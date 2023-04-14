@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, ObjectIdColumn, ObjectID, Column, OneToMany } from 'typeorm';
 import { Session } from '../session/session.entity';
 import { Seat } from '../seat/seat.entity';
 
@@ -9,10 +9,10 @@ address：电影院的地址。
 description：电影院的描述（可选）。
 */
 
-@Entity()
+@Entity('cinemas')
 export class Cinema {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @ObjectIdColumn()
+  id: ObjectID;
 
   @Column()
   name: string;

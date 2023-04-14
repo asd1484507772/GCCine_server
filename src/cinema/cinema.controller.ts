@@ -7,6 +7,7 @@ import {
   Delete,
   Put,
 } from '@nestjs/common';
+import { ObjectID } from 'typeorm';
 import { CinemaService } from './cinema.service';
 import { CreateCinemaDto } from './dto/create-cinema.dto';
 import { UpdateCinemaDto } from './dto/update-cinema.dto';
@@ -26,17 +27,17 @@ export class CinemaController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: ObjectID) {
     return this.cinemaService.findOne(id);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateCinemaDto: UpdateCinemaDto) {
+  update(@Param('id') id: ObjectID, @Body() updateCinemaDto: UpdateCinemaDto) {
     return this.cinemaService.update(id, updateCinemaDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: ObjectID) {
     return this.cinemaService.remove(id);
   }
 }
