@@ -1,6 +1,6 @@
 export class CreateMovieDto {
   title: string;
   director: string;
-  releaseDate: Date;
+  startDate: Date;
   description?: string;
 }

@@ -1,6 +1,6 @@
 export class UpdateMovieDto {
   title?: string;
   director?: string;
-  releaseDate?: Date;
+  startDate?: Date;
   description?: string;
 }

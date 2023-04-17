@@ -10,6 +10,7 @@ import {
 import { MovieService } from './movie.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
+import { ObjectID } from 'typeorm';
 
 @Controller('movies')
 export class MovieController {
@@ -26,17 +27,17 @@ export class MovieController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: ObjectID) {
     return this.movieService.findOne(id);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateMovieDto: UpdateMovieDto) {
+  update(@Param('id') id: ObjectID, @Body() updateMovieDto: UpdateMovieDto) {
     return this.movieService.update(id, updateMovieDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: ObjectID) {
     return this.movieService.remove(id);
   }
 }

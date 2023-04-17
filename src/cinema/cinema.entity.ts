@@ -21,7 +21,7 @@ export class Cinema {
   address: string;
 
   @Column({ nullable: true })
-  description?: string;
+  phone?: string;
 
   @OneToMany(() => Session, (session) => session.cinema, {
     cascade: true,
