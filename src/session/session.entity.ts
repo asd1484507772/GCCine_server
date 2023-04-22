@@ -1,9 +1,5 @@
-const {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-} = require('typeorm');
+import { Entity, ObjectIdColumn, ObjectID, Column, ManyToOne } from 'typeorm';
+
 import { Cinema } from '../cinema/cinema.entity';
 import { Movie } from '../movie/movie.entity';
 import { Order } from '../order/order.entity';
@@ -16,16 +12,31 @@ endTime：场次的结束时间。
 
 */
 
-@Entity()
+@Entity('sessions')
 export class Session {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @ObjectIdColumn()
+  id: ObjectID;
+
+  @ObjectIdColumn()
+  movieId: ObjectID;
+
+  @ObjectIdColumn()
+  cinemaId: ObjectID;
+
+  @Column()
+  hallId: ObjectID;
 
   @Column()
   startTime: Date;
 
   @Column()
   endTime: Date;
+
+  @Column()
+  price: number;
+
+  @Column()
+  status: boolean;
 
   @ManyToOne(() => Cinema, (cinema) => cinema.sessions)
   cinema: Cinema;

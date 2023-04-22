@@ -11,6 +11,7 @@ import {
 import { SessionService } from './session.service';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { UpdateSessionDto } from './dto/update-session.dto';
+import { ObjectID } from 'typeorm';
 
 @Controller('sessions')
 export class SessionController {
@@ -27,17 +28,20 @@ export class SessionController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: ObjectID) {
     return this.sessionService.findOne(id);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateSessionDto: UpdateSessionDto) {
+  update(
+    @Param('id') id: ObjectID,
+    @Body() updateSessionDto: UpdateSessionDto,
+  ) {
     return this.sessionService.update(id, updateSessionDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: ObjectID) {
     return this.sessionService.remove(id);
   }
 }

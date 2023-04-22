@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ObjectID, Repository } from 'typeorm';
 import { Session } from './session.entity';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { UpdateSessionDto } from './dto/update-session.dto';
@@ -21,19 +21,19 @@ export class SessionService {
     return this.sessionRepository.find();
   }
 
-  findOne(id: string): Promise<Session> {
+  findOne(id: ObjectID): Promise<Session> {
     return this.sessionRepository.findOne({ where: { id } });
   }
 
   async update(
-    id: string,
+    id: ObjectID,
     updateSessionDto: UpdateSessionDto,
   ): Promise<Session> {
     await this.sessionRepository.update(id, updateSessionDto);
     return this.sessionRepository.findOne({ where: { id } });
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: ObjectID): Promise<void> {
     await this.sessionRepository.delete(id);
   }
 }
