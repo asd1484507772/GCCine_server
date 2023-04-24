@@ -3,13 +3,14 @@ import {
   Get,
   Post,
   Body,
+  Patch,
   Param,
   Delete,
-  Put,
 } from '@nestjs/common';
 import { SeatService } from './seat.service';
 import { CreateSeatDto } from './dto/create-seat.dto';
 import { UpdateSeatDto } from './dto/update-seat.dto';
+import { ObjectID } from 'typeorm';
 
 @Controller('seats')
 export class SeatController {
@@ -26,17 +27,17 @@ export class SeatController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: ObjectID) {
     return this.seatService.findOne(id);
   }
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateSeatDto: UpdateSeatDto) {
+  @Patch(':id')
+  update(@Param('id') id: ObjectID, @Body() updateSeatDto: UpdateSeatDto) {
     return this.seatService.update(id, updateSeatDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: ObjectID) {
     return this.seatService.remove(id);
   }
 }

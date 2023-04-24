@@ -1,27 +1,31 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
+  ObjectIdColumn,
+  ObjectID,
   Column,
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Cinema } from '../cinema/cinema.entity';
+import { Hall } from '../hall/hall.entity';
 
-@Entity()
+@Entity('seats')
 export class Seat {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @ObjectIdColumn()
+  id: ObjectID;
 
   @Column()
-  row: number;
+  hallId: ObjectID;
 
   @Column()
-  column: number;
-
-  @ManyToOne(() => Cinema, (cinema) => cinema.seats)
-  @JoinColumn({ name: 'cinemaId' })
-  cinema: Cinema;
+  no: string;
 
   @Column()
-  cinemaId: string;
+  status: string;
+
+  @Column()
+  price: number;
+
+  @ManyToOne(() => Hall, (hall) => hall.seats)
+  @JoinColumn({ name: 'hallId' })
+  hall: Hall;
 }

@@ -14,7 +14,6 @@ export class CinemaService {
 
   create(createCinemaDto: CreateCinemaDto): Promise<Cinema> {
     const cinema = this.cinemaRepository.create(createCinemaDto);
-
     return this.cinemaRepository.save(cinema);
   }
 

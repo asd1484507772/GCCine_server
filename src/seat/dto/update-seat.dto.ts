@@ -1,5 +1,4 @@
-export class UpdateSeatDto {
-  row?: number;
-  column?: number;
-  cinemaId?: string;
-}
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateSeatDto } from './create-seat.dto';
+
+export class UpdateSeatDto extends PartialType(CreateSeatDto) {}

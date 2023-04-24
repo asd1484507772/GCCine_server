@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, ObjectID } from 'typeorm';
 import { Seat } from './seat.entity';
 import { CreateSeatDto } from './dto/create-seat.dto';
 import { UpdateSeatDto } from './dto/update-seat.dto';
@@ -12,25 +12,25 @@ export class SeatService {
     private seatRepository: Repository<Seat>,
   ) {}
 
-  create(createSeatDto: CreateSeatDto): Promise<Seat> {
-    const seat = this.seatRepository.create(createSeatDto);
-    return this.seatRepository.save(seat);
+  async create(createSeatDto: CreateSeatDto): Promise<Seat> {
+    const newSeat = this.seatRepository.create(createSeatDto);
+    return this.seatRepository.save(newSeat);
   }
 
   findAll(): Promise<Seat[]> {
-    return this.seatRepository.find();
+    return this.seatRepository.find({ relations: ['hall'] });
   }
 
-  findOne(id: string): Promise<Seat> {
+  findOne(id: ObjectID): Promise<Seat> {
     return this.seatRepository.findOne({ where: { id } });
   }
 
-  async update(id: string, updateSeatDto: UpdateSeatDto): Promise<Seat> {
+  async update(id: ObjectID, updateSeatDto: UpdateSeatDto): Promise<Seat> {
     await this.seatRepository.update(id, updateSeatDto);
     return this.seatRepository.findOne({ where: { id } });
   }
 
-  async remove(id: string): Promise<void> {
-    await this.seatRepository.delete(id);
+  remove(id: ObjectID): Promise<void> {
+    return this.seatRepository.delete(id).then(() => null);
   }
 }

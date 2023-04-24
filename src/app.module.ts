@@ -6,8 +6,9 @@ import { UserModule } from './user/user.module';
 import { CinemaModule } from './cinema/cinema.module';
 import { MovieModule } from './movie/movie.module';
 import { SessionModule } from './session/session.module';
-// import { SeatModule } from './seat/seat.module';
-// import { OrderModule } from './order/order.module';
+import { HallModule } from './hall/hall.module';
+import { SeatModule } from './seat/seat.module';
+import { OrderModule } from './order/order.module';
 import envConfig from '../config/env';
 
 @Module({
@@ -32,8 +33,9 @@ import envConfig from '../config/env';
     CinemaModule,
     MovieModule,
     SessionModule,
-    // SeatModule,
-    // OrderModule,
+    HallModule,
+    SeatModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
