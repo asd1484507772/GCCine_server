@@ -19,9 +19,7 @@ export class HallService {
 
   // 根据ID获取影厅
   findOne(id: ObjectID): Promise<Hall> {
-    return this.hallRepository.findOneOrFail({
-      where: { id },
-    });
+    return this.hallRepository.findOneOrFail(id as any);
   }
 
   // 创建影厅
